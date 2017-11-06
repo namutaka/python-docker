@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  ws:
+    image: ${IMAGE}
+    tty: true
+    working_dir: /usr/src/app
+    volumes:
+      - ${CURRENT_DIR}:/usr/src/app
+
