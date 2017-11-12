@@ -10,7 +10,13 @@ export SCRIPT_DIR=$(cd $(dirname $0);pwd)
 source ${CURRENT_DIR}/env.inc
 
 mode="$1"
-shift
+shift || true
+
+arg_str=""
+for arg in "$@"; do
+  arg_str="$arg_str \"$arg\""
+done
+
 case $mode in
   up)
     docker-compose up -d ws
@@ -18,15 +24,15 @@ case $mode in
   down)
     docker-compose down
     ;;
-  py)
-    docker-compose exec ws sh -xc "python $@"
-    ;;
-  pyd)
-    docker-compose exec ws sh -xc "python -i $@"
+  py|python)
+    docker-compose exec ws sh -xc "python $arg_str"
     ;;
   sh)
     docker-compose exec ws bash --init-file "./bashrc" -i
     ;;
 
+  *)
+    echo "Usage: $0 [up|down|py|python|sh]" >&2
+    exit 1
 esac
 
