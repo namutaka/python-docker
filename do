@@ -28,7 +28,7 @@ case $mode in
     docker-compose exec ws sh -xc "python $arg_str"
     ;;
   sh)
-    docker-compose exec ws bash --init-file "./bashrc" -i
+    docker-compose exec ws bash -i
     ;;
 
   *)
