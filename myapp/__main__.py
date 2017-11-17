@@ -1,3 +1,4 @@
+# coding=utf-8
 import sys
 
 print("Hello world! ハロー")
@@ -31,6 +32,11 @@ if __name__ == '__main__':
     print('Customer:', repr(Customer.first_name), Customer.__dict__)
     print('Field:', repr(Customer.first_name), Customer.first_name.__dict__)
     foo = Customer()
+    #from IPython import embed
+    #embed() # this call anywhere in your program will start IPython
+
+    #import IPython
+    #IPython.start_ipython(argv=[])
     print('Before:', repr(foo.first_name), foo.__dict__)
     foo.first_name = 'Euler'
     print('After: ', repr(foo.first_name), foo.__dict__)
