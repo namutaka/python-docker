@@ -19,13 +19,16 @@ done
 
 case $mode in
   up)
-    docker-compose up -d ws
+    docker-compose up -d "$@" ws
     ;;
   down)
     docker-compose down
     ;;
   py|python)
     docker-compose exec ws sh -xc "python $arg_str"
+    ;;
+  jupyter)
+    docker-compose exec ws sh -xc "jupyter notebook --ip=0.0.0.0"
     ;;
   sh)
     docker-compose exec ws bash -i

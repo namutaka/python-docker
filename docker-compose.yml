@@ -2,9 +2,12 @@ version: '3'
 
 services:
   ws:
-    image: ${IMAGE}
+    #image: ${IMAGE}
+    build: .
     tty: true
-    working_dir: /usr/src/app
+    working_dir: /apps/
     volumes:
-      - ${CURRENT_DIR}:/usr/src/app
+      - ${CURRENT_DIR}:/apps/
+    ports:
+      - 8888:8888
 
