@@ -10,4 +10,5 @@ services:
       - ${CURRENT_DIR}:/apps/
     ports:
       - 8888:8888
+      - 8000:8000
 

@@ -26,4 +26,6 @@ WORKDIR /home/appuser/
 
 ENV TERM xterm-color
 
+# add default python userbase path to PATH
+ENV PATH $PATH:~/.local/bin
 

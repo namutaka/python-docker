@@ -1,0 +1,45 @@
+#!/bin/bash
+# :vim:ft=sh:
+
+set -e
+
+export CURRENT_DIR=$(pwd)
+export SCRIPT_DIR=$(cd $(dirname $0);pwd)
+
+DOC_COMP_FILE=${SCRIPT_DIR}/docker-compose.yml
+DOC_COMP_CMD="docker-compose -f $DOC_COMP_FILE"
+
+if [ -f "${CURRENT_DIR}/env.inc" ]; then
+  source ${CURRENT_DIR}/env.inc
+fi
+
+mode="$1"
+shift || true
+
+arg_str=""
+for arg in "$@"; do
+  arg_str="$arg_str \"$arg\""
+done
+
+case $mode in
+  up)
+    $DOC_COMP_CMD up -d "$@" ws
+    ;;
+  down)
+    $DOC_COMP_CMD down
+    ;;
+  py|python)
+    $DOC_COMP_CMD exec ws sh -xc "python $arg_str"
+    ;;
+  jupyter)
+    $DOC_COMP_CMD exec ws sh -xc "jupyter notebook --ip=0.0.0.0"
+    ;;
+  sh)
+    $DOC_COMP_CMD exec ws bash -i
+    ;;
+
+  *)
+    echo "Usage: $0 [up|down|py|python|sh]" >&2
+    exit 1
+esac
+
