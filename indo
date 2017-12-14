@@ -6,8 +6,10 @@ set -e
 export CURRENT_DIR=$(pwd)
 export SCRIPT_DIR=$(cd $(dirname $0);pwd)
 
+CURRENT_DIR_NAME=$(basename $CURRENT_DIR)
 DOC_COMP_FILE=${SCRIPT_DIR}/docker-compose.yml
-DOC_COMP_CMD="docker-compose -f $DOC_COMP_FILE"
+DOC_COMP_CMD="docker-compose -f $DOC_COMP_FILE -p $CURRENT_DIR_NAME"
+
 
 if [ -f "${CURRENT_DIR}/env.inc" ]; then
   source ${CURRENT_DIR}/env.inc
@@ -36,6 +38,9 @@ case $mode in
     ;;
   sh)
     $DOC_COMP_CMD exec ws bash -i
+    ;;
+  root)
+    $DOC_COMP_CMD exec --user root  ws bash -i
     ;;
 
   *)
